@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Registration Form</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f1f1f1;
+      padding: 40px;
+    }
+
+    .form-container {
+      background: white;
+      max-width: 400px;
+      margin: auto;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 8px;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    button {
+      width: 100%;
+      background-color: #28a745;
+      color: white;
+      padding: 12px;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+
+    button:hover {
+      background-color: #218838;
+    }
+
+    .error {
+      color: red;
+      font-size: 13px;
+    }
+  </style>
+</head>
+<body>
+  <div class="form-container">
+    <h2>Registration Form</h2>
+    <form id="registrationForm">
+      <label>Username</label>
+      <input type="text" id="username" required />
+
+      <label>Email</label>
+      <input type="email" id="email" required />
+
+      <label>Password</label>
+      <input
+        type="password"
+        id="password"
+        required
+        placeholder="At least 6 characters with a number"
+      />
+
+      <label>Address / Message</label>
+      <textarea id="message" rows="4" required></textarea>
+
+      <label>Contact Number</label>
+      <input type="text" id="contact" required placeholder="10-digit number" />
+
+      <div class="error" id="error-msg"></div>
+
+      <button type="submit">Register</button>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById("registrationForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const username = document.getElementById("username").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value;
+      const message = document.getElementById("message").value.trim();
+      const contact = document.getElementById("contact").value.trim();
+      const errorMsg = document.getElementById("error-msg");
+
+      // Clear previous error
+      errorMsg.textContent = "";
+
+      // Password pattern: At least 6 characters, one number
+      const passwordPattern = /^(?=.*\d).{6,}$/;
+      const contactPattern = /^\d{10}$/;
+
+      if (!username || !email || !password || !message || !contact) {
+        errorMsg.textContent = "Please fill in all fields.";
+        return;
+      }
+
+      if (!passwordPattern.test(password)) {
+        errorMsg.textContent = "Password must be at least 6 characters and contain a number.";
+        return;
+      }
+
+      if (!contactPattern.test(contact)) {
+        errorMsg.textContent = "Contact number must be exactly 10 digits.";
+        return;
+      }
+
+      alert("Registration successful!");
+      // You can reset the form or submit to server here
+      this.reset();
+    });
+  </script>
+</body>
+</html>
